@@ -1,0 +1,22 @@
+{
+  "name": "abb-hue-plus-addon",
+  "version": "0.1.0",
+  "description": "Expose Philips Hue scenes as free@home switches",
+  "main": "build/main.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "pack": "free-at-home-cli buildscriptarchive build",
+    "validate": "free-at-home-cli validate",
+    "journal": "free-at-home-cli journal --filterAddon"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@busch-jaeger/free-at-home": "0.37.0"
+  },
+  "devDependencies": {
+    "@busch-jaeger/free-at-home-cli": "0.13.1",
+    "@tsconfig/node18": "^18.2.2",
+    "@types/node": "^18.15.3",
+    "typescript": "^5.2.2"
+  }
+}

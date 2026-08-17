@@ -1,0 +1,17 @@
+# secrets — never commit
+.hue-credentials.json
+.env
+
+# build / deps
+node_modules/
+dist/
+build/
+*.tar
+
+# os / logs
+.DS_Store
+*.log
+
+# local npm registry override
+.npmrc
+addon-ts/.npmrc

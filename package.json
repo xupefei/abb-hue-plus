@@ -1,0 +1,16 @@
+{
+  "name": "abb-hue-plus",
+  "version": "0.1.0",
+  "description": "free@home add-on exposing Philips Hue scenes and dynamic scenes as virtual switches",
+  "main": "src/main.js",
+  "engines": {
+    "node": ">=18 <19"
+  },
+  "scripts": {
+    "test:hue": "node test/hue_client.test.js",
+    "test:sync": "node test/sync.test.js",
+    "start": "node src/main.js"
+  },
+  "license": "MIT",
+  "author": "pengfei"
+}

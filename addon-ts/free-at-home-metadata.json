@@ -1,0 +1,47 @@
+{
+  "name": { "en": "Hue Plus" },
+  "version": "0.1.0",
+  "id": "com.pengfei.freeathome.hueplus",
+  "license": "MIT",
+  "description": { "en": "Expose Philips Hue scenes and dynamic scenes as free@home switches.\n\nSetup:\n1. Enter your Hue bridge IP address.\n2. Get an application key: press the round link button on top of the Hue bridge, then within 30 seconds run:\n     curl -sk -X POST https://<BRIDGE_IP>/api -H 'Content-Type: application/json' -d '{\"devicetype\":\"freeathome#hueplus\"}'\n   The response contains \"username\" — paste that value into the Application key field.\n3. Choose how to expose scenes and save. Switches appear in the device list (place them on the floor plan)." },
+  "url": "https://github.com/paddyxu/abb-hue-plus",
+  "author": "Paddy Xu",
+  "type": "app",
+  "entryPoint": "build/main.js",
+  "minSysapVersion": "3.0.0",
+  "parameters": {
+    "connection": {
+      "name": "Hue Bridge",
+      "items": {
+        "hueIp": { "name": "Bridge IP address", "type": "ipv4" },
+        "keyHelp": { "name": "Press the Hue bridge link button, then POST to https://<bridge-ip>/api with body {\"devicetype\":\"freeathome#hueplus\"} within 30s. Paste the returned \"username\" below.", "type": "text" },
+        "hueAppKey": { "name": "Application key", "type": "password" }
+      }
+    },
+    "options": {
+      "name": "Options",
+      "items": {
+        "expose": {
+          "name": "Expose as",
+          "type": "select",
+          "default": "room",
+          "options": [
+            { "key": "room", "name": "One switch per room" },
+            { "key": "dynamic", "name": "One switch per dynamic scene" },
+            { "key": "static", "name": "One switch per static scene" },
+            { "key": "both", "name": "Every scene" }
+          ]
+        },
+        "namePrefix": { "name": "Name prefix", "type": "string" },
+        "syncIntervalMinutes": { "name": "Auto-sync interval (minutes, 0 = off)", "type": "number", "min": 0, "max": 1440 },
+        "sync": {
+          "name": "Re-scan Hue scenes",
+          "type": "button",
+          "buttonLabel": "Force sync now",
+          "event": true,
+          "confirm": "Re-scan the Hue bridge and update the switches?"
+        }
+      }
+    }
+  }
+}

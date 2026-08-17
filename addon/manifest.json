@@ -1,0 +1,42 @@
+{
+  "id": "com.pengfei.freeathome.hueplus",
+  "name": { "en": "Hue Plus" },
+  "description": { "en": "Expose Philips Hue scenes and dynamic scenes as free@home switches." },
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "pengfei",
+  "url": { "en": "https://github.com/pengfei/abb-hue-plus" },
+  "entryPoint": "main.js",
+  "type": "app",
+  "minSysapVersion": "3.0.0",
+  "accessControl": {
+    "networkAccess": true,
+    "networkPorts": [443]
+  },
+  "parameters": {
+    "connection": {
+      "name": { "en": "Hue Bridge" },
+      "items": {
+        "hueIp": { "name": { "en": "Bridge IP address" }, "type": "ipv4", "required": true },
+        "hueAppKey": { "name": { "en": "Application key" }, "type": "password", "required": true }
+      }
+    },
+    "options": {
+      "name": { "en": "Options" },
+      "items": {
+        "expose": {
+          "name": { "en": "Expose as" },
+          "type": "select",
+          "required": true,
+          "options": [
+            { "key": "room", "name": { "en": "One switch per room" } },
+            { "key": "dynamic", "name": { "en": "One switch per dynamic scene" } },
+            { "key": "static", "name": { "en": "One switch per static scene" } },
+            { "key": "both", "name": { "en": "Every scene" } }
+          ]
+        },
+        "namePrefix": { "name": { "en": "Name prefix" }, "type": "string", "required": false }
+      }
+    }
+  }
+}
