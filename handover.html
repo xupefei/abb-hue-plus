@@ -1,0 +1,251 @@
+<title>Hue × free@home Handover</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    /* light palette (base) */
+    --bg:#f5f6f8; --panel:#ffffff; --panel-2:#eef0f4;
+    --ink:#1a1f26; --ink-soft:#4a545f; --ink-faint:#7b8794;
+    --line:#dfe3e9;
+    --cool:#2f7fa6;   /* daylight blue accent */
+    --warm:#c9791d;   /* bulb amber accent */
+    --ok:#2f8f60; --warn:#b5791b; --bad:#c0453c;
+    --ok-bg:#e7f4ec; --warn-bg:#f8efdb; --bad-bg:#f8e6e4; --next-bg:#e6eef5;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#0f1419; --panel:#161d25; --panel-2:#1c242e;
+      --ink:#e6eaef; --ink-soft:#a9b4c0; --ink-faint:#6d7783;
+      --line:#28323d;
+      --cool:#5cb4dc; --warm:#e8a24b;
+      --ok:#4fc088; --warn:#e0a53f; --bad:#e56b60;
+      --ok-bg:#132a20; --warn-bg:#2c2410; --bad-bg:#2e1815; --next-bg:#132330;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1419; --panel:#161d25; --panel-2:#1c242e;
+    --ink:#e6eaef; --ink-soft:#a9b4c0; --ink-faint:#6d7783;
+    --line:#28323d;
+    --cool:#5cb4dc; --warm:#e8a24b;
+    --ok:#4fc088; --warn:#e0a53f; --bad:#e56b60;
+    --ok-bg:#132a20; --warn-bg:#2c2410; --bad-bg:#2e1815; --next-bg:#132330;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:16px; line-height:1.6;
+    padding:clamp(20px,5vw,64px) 20px;
+  }
+  .wrap{max-width:860px; margin:0 auto}
+
+  /* header */
+  header{margin-bottom:44px}
+  .eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 10px}
+  h1{font-size:clamp(30px,6vw,46px); line-height:1.05; letter-spacing:-.02em; font-weight:800; margin:0 0 14px; text-wrap:balance}
+  h1 .x{color:var(--ink-faint); font-weight:400; padding:0 .18em}
+  .lede{font-size:18px; color:var(--ink-soft); margin:0 0 22px; max-width:62ch}
+  .temp-rule{height:4px; border-radius:3px; background:linear-gradient(90deg,#4a9cc7 0%,#8fb9c9 32%,#e9d6a8 62%,#e0912e 84%,#c66a1f 100%)}
+
+  /* facts strip */
+  .facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-top:26px}
+  .fact{background:var(--panel); padding:13px 15px}
+  .fact dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 4px}
+  .fact dd{margin:0; font-family:var(--mono); font-size:13.5px; color:var(--ink); word-break:break-word}
+
+  /* sections */
+  section{margin-top:46px}
+  h2{font-size:13px; font-family:var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 4px; display:flex; align-items:center; gap:10px}
+  h2 .n{color:var(--ink-faint)}
+  .sub{color:var(--ink-faint); font-size:14px; margin:0 0 20px}
+
+  /* cards */
+  .card{background:var(--panel); border:1px solid var(--line); border-left-width:4px; border-radius:9px; padding:16px 18px; margin:12px 0}
+  .card.ok{border-left-color:var(--ok)} .card.bad{border-left-color:var(--bad)}
+  .card.warn{border-left-color:var(--warn)} .card.next{border-left-color:var(--cool)}
+  .card h3{margin:0 0 6px; font-size:16.5px; letter-spacing:-.01em; display:flex; gap:10px; align-items:baseline; flex-wrap:wrap}
+  .card p{margin:6px 0 0; color:var(--ink-soft); font-size:14.5px}
+  .card p.why{color:var(--ink); font-size:14px}
+  .chip{font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; padding:3px 8px; border-radius:999px; white-space:nowrap}
+  .chip.ok{background:var(--ok-bg); color:var(--ok)} .chip.bad{background:var(--bad-bg); color:var(--bad)}
+  .chip.warn{background:var(--warn-bg); color:var(--warn)} .chip.next{background:var(--next-bg); color:var(--cool)}
+  .effort{margin-left:auto; font-family:var(--mono); font-size:11px; color:var(--ink-faint); letter-spacing:.04em}
+
+  code{font-family:var(--mono); font-size:.88em; background:var(--panel-2); padding:1.5px 5px; border-radius:4px; color:var(--ink)}
+  pre{font-family:var(--mono); font-size:12.5px; line-height:1.55; background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:13px 15px; overflow-x:auto; margin:12px 0; color:var(--ink)}
+  ul{margin:8px 0 0; padding-left:20px} li{margin:4px 0; color:var(--ink-soft); font-size:14.5px}
+  li strong{color:var(--ink)}
+  a{color:var(--cool)} a:focus-visible,summary:focus-visible{outline:2px solid var(--cool); outline-offset:2px; border-radius:3px}
+
+  .legend{display:flex; flex-wrap:wrap; gap:8px 16px; margin:0 0 4px}
+  .legend span{display:inline-flex; align-items:center; gap:7px; font-size:13px; color:var(--ink-soft)}
+  .dot{width:10px; height:10px; border-radius:3px}
+  .footer{margin-top:52px; padding-top:18px; border-top:1px solid var(--line); color:var(--ink-faint); font-size:13px; font-family:var(--mono)}
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">Engineering handover · 2026-08-17</p>
+  <h1>Philips&nbsp;Hue <span class="x">×</span> ABB&nbsp;free@home</h1>
+  <p class="lede">Everything learned wiring a Hue bridge to a free@home System Access Point — the custom add-on we built, the platform walls we hit, and the threads worth pulling next.</p>
+  <div class="temp-rule" role="presentation"></div>
+  <dl class="facts">
+    <div class="fact"><dt>Hue bridge</dt><dd>BRIDGE_IP<br>BSB002 · API 1.78.0</dd></div>
+    <div class="fact"><dt>free@home SysAP</dt><dd>SYSAP_IP<br>fw 3.5.4</dd></div>
+    <div class="fact"><dt>Repo</dt><dd>github.com/<br>xupefei/abb-hue-plus</dd></div>
+    <div class="fact"><dt>Local API</dt><dd>HTTP Basic<br>fhapi/v1 + /api/addon/v1</dd></div>
+    <div class="fact"><dt>Hue creds</dt><dd>.hue-credentials.json<br>(git-ignored)</dd></div>
+    <div class="fact"><dt>Current state</dt><dd>reverted to official<br>Hue integration</dd></div>
+  </dl>
+</header>
+
+<section>
+  <h2>Where things stand</h2>
+  <p class="sub">Read this first.</p>
+  <div class="card warn">
+    <h3>The custom add-on works, but we reverted to the built-in Hue integration <span class="chip warn">context</span></h3>
+    <p>We built and deployed a full custom free@home add-on (in <code>addon-ts/</code>), then the owner chose to go back to ABB's <strong>built-in Hue integration</strong> — it natively exposes Hue lights &amp; groups <em>with colour/temperature</em>, which our add-on didn't. The add-on is <strong>deleted from the SysAP</strong> but preserved in the repo. Hue-side, all rooms have "Day&nbsp;Cycle" scenes; sensors/dimmers currently trigger <code>Bright</code> (with Bathroom + Staircase on a 07:00 Bright / 01:00 Rest night split).</p>
+    <p class="why">Net: the integration itself is done and stable. Future work is <em>enrichment</em> (scene-triggering, colour, automation) — not a broken base.</p>
+  </div>
+  <div class="legend" style="margin-top:16px">
+    <span><span class="dot" style="background:var(--ok)"></span>works</span>
+    <span><span class="dot" style="background:var(--bad)"></span>doesn't work / platform wall</span>
+    <span><span class="dot" style="background:var(--warn)"></span>gotcha — will bite you</span>
+    <span><span class="dot" style="background:var(--cool)"></span>worth trying next</span>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">01</span> What works</h2>
+  <p class="sub">Proven against real hardware.</p>
+
+  <div class="card ok">
+    <h3>Custom Node/TS add-on on the SysAP <span class="chip ok">solid</span></h3>
+    <p>Built on ABB's <code>@busch-jaeger/free-at-home</code> ADK. Runs as a systemd container on-device (<code>ws+unix://</code> socket, LAN-outage-proof). One virtual device per Hue room/zone; <strong>short-press → activate scene</strong>, <strong>hold → dim</strong>, two-way state sync via the Hue v2 event stream, auto-resync + force-sync button.</p>
+  </div>
+  <div class="card ok">
+    <h3>Fully scriptable add-on deploy <span class="chip ok">automatable</span></h3>
+    <p>Via <code>/api/addon/v1</code>: upload tar → create container → configure → start. Beats clicking through the app.</p>
+    <pre>POST /api/addon/v1/rest/ref        (multipart field "data", type application/x-tar)
+POST /api/addon/v1/rest/container  (body = add-on id as text/plain)
+PUT  .../container/{id}/configuration
+POST .../container/{id}/start      · logs: GET .../rest/journal/{id}</pre>
+  </div>
+  <div class="card ok">
+    <h3>Hue-side org: per-room Day Cycle scenes <span class="chip ok">done</span></h3>
+    <p><code>build_day_cycles.py</code> creates a 4-phase <code>smart_scene</code> (Concentrate → Bright → Relax → Rest, cool→warm) in every room. Brightness tuned per-room; Bathroom special-cased for a midnight shower.</p>
+  </div>
+  <div class="card ok">
+    <h3>Device renames via REST <span class="chip ok">persists</span></h3>
+    <p><code>POST /api/rest/device/{sysap}/{serial}</code> with <code>{"displayName":"…"}</code> sticks. Same for channel display names.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">02</span> What does <em>not</em> work</h2>
+  <p class="sub">Platform walls. Don't re-litigate these — they're confirmed dead ends via the REST API.</p>
+
+  <div class="card bad">
+    <h3>Smooth live group dimming <span class="chip bad">Zigbee-bound</span></h3>
+    <p>Holding a dimmer to fade a Hue <em>group</em> is laggy / jumps in stages. Tried every path: streamed absolute setpoints, coalescing, single-in-flight, and <code>dimming_delta</code> (which is just relative <code>±N%</code> steps, <strong>not</strong> a native ramp — <code>dynamics.duration</code> doesn't slow it). Root cause is the Zigbee group-command rate, not our code.</p>
+  </div>
+  <div class="card bad">
+    <h3>Writing channel parameters over REST <span class="chip bad">app-only</span></h3>
+    <p>e.g. the "switch-on: White vs Last Colour" setting (<code>par0025</code>: <code>1</code>→White, <code>3</code>→Last Colour). <code>POST /api/rest/channel</code> only accepts <code>displayName</code> — parameter writes are ignored. Same for room/floorplan assignment, sensor↔actuator pairing, scene editing.</p>
+  </div>
+  <div class="card bad">
+    <h3>Deleting virtual devices <span class="chip bad">no endpoint</span></h3>
+    <p><code>DELETE /virtualdevice</code> → 404. And because we set <code>setAutoConfirm(true)</code>, TTL expiry is disabled — orphaned <code>Hue:</code> switches never auto-vanish and must be removed by hand in the app.</p>
+  </div>
+  <div class="card bad">
+    <h3>The add-on "Log" tab in the app <span class="chip bad">undocumented</span></h3>
+    <p>Stays empty. <code>console.log</code> reaches the systemd journal (readable via the journal API) but not the app tab. <code>setEnableLogging(true)</code> only toggles the lib's internal error logging — no effect on the tab.</p>
+  </div>
+  <div class="card bad">
+    <h3>f@h-only name overrides for imported Hue <em>lights</em> <span class="chip bad">syncs back</span></h3>
+    <p>The built-in integration mirrors names from the bridge, so renaming an imported Hue <em>light</em> on the f@h side gets overwritten on next sync. Hue <em>groups</em> hold a f@h-side name; lights don't. (So "Hue&nbsp;light:" prefixes only stick if applied on the bridge — which pollutes the Hue app.)</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">03</span> Gotchas that will bite you</h2>
+  <p class="sub">Hard-won landmines. Keep this list next to you.</p>
+
+  <div class="card warn">
+    <h3>Deleting a scene cascade-deletes its automations <span class="chip warn">data loss</span></h3>
+    <p><code>behavior_instance</code>s list <code>dependees</code> with <code>level:critical</code> including the scenes they recall. Delete a scene → the bridge silently removes every automation that recalled it. <strong>Audit dependees before mass-deleting scenes.</strong> This cost us the motion automations once.</p>
+  </div>
+  <div class="card warn">
+    <h3>Container stop/start does NOT reload code <span class="chip warn">deploy</span></h3>
+    <p>A container keeps running the code it was <em>created</em> with. To ship new code you must <strong>recreate</strong> it: <code>stop → DELETE ref → upload → create → configure → start</code>. And a back-to-back delete/create races ("Unable to checkout commit: File exists") — add ~4s pauses; if it half-creates and crash-loops, fully tear down and retry.</p>
+  </div>
+  <div class="card warn">
+    <h3>smart_scene quirks <span class="chip warn">Hue v2</span></h3>
+    <ul>
+      <li>Tile renders only with <strong>≥3 timeslots</strong> (2 = blank tile).</li>
+      <li><code>metadata.image</code> settable <strong>only at POST</strong>, never PUT.</li>
+      <li>Sunset slot: write <code>{"kind":"sunset"}</code> with <strong>no</strong> <code>time</code> field — the bridge returns <code>time:{0,0,0}</code> on read but rejects it on write.</li>
+      <li>Only <code>time</code> and <code>sunset</code> kinds — <strong>no sunrise</strong> (that lives on the v1 Daylight sensor / behaviors).</li>
+    </ul>
+  </div>
+  <div class="card warn">
+    <h3>Virtual-device identity &amp; type <span class="chip warn">duplicates</span></h3>
+    <p>Native id must key on a <strong>stable identity</strong> (room/scene UUID), never the target scene — else changing what a switch triggers spawns a duplicate. And device <em>type</em> can't change on an existing native id (Switch→Dim needs an id salt). The SysAP assigns its own native serial; your chosen serial is just a handle — match your devices by <code>interface: vdev:&lt;user&gt;@…</code>.</p>
+  </div>
+  <div class="card warn">
+    <h3>f@h dimmer sends noise <span class="chip warn">runtime</span></h3>
+    <p>It fires its <em>cached</em> brightness ~4ms after an ON (guard it, or it overrides the scene), and repeats the extreme value (1%/100%) while you hold at the end of range (dedup it). Its slider keeps its own setpoint, so a hold after a scene change ramps from a stale value.</p>
+  </div>
+  <div class="card warn">
+    <h3>Useful primitives <span class="chip warn">reference</span></h3>
+    <ul>
+      <li><code>home_off</code> — a Hue-Accessories action = whole-house off (cleaner than <code>all_off</code> scoped to <code>bridge_home</code>).</li>
+      <li><code>bridge_home</code> grouped_light = all lights on the bridge.</li>
+      <li>Light <code>powerup.preset</code> = physical power-on behaviour (currently all <code>powerfail</code>/previous) — <em>not</em> the same as the f@h switch-on mode.</li>
+      <li>TTL minimum for a virtual device is <strong>&gt;60s</strong> (180 works).</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">04</span> Worth trying next</h2>
+  <p class="sub">Ranked by value ÷ effort.</p>
+
+  <div class="card next">
+    <h3>The XMPP-RPC channel <span class="chip next">high value</span><span class="effort">effort: high</span></h3>
+    <p>The web UI does all the things REST can't — room/floorplan assignment, pairing, channel params, scene edits — over <strong>XMPP</strong> to <code>mrha@busch-jaeger.de/rpc</code>, wrapped in <code>RemoteInterface.cryptMessage</code> (encrypted payload). This is the real "full-config" API. Automating it means implementing the encrypted XMPP/SASL handshake (port 5222) + the internal RPC vocabulary.</p>
+    <p class="why">Start from community libs (<code>freeathome-api</code> and similar) that already implement the handshake — don't reinvent the crypto.</p>
+  </div>
+  <div class="card next">
+    <h3>Add colour / temperature to the add-on <span class="chip next">high value</span><span class="effort">effort: med</span></h3>
+    <p>Our add-on used a brightness-only <code>DimActuator</code> (func 12). The official integration uses a colour-capable actuator (func <code>2E</code>) exposing CT + RGB. The ADK library has colour-capable channel types — adopting one closes the biggest gap that drove the revert.</p>
+  </div>
+  <div class="card next">
+    <h3>Per-light dimming instead of per-group <span class="chip next">experiment</span><span class="effort">effort: med</span></h3>
+    <p>Group dimming hits the Zigbee broadcast limit. Driving individual lights may fade smoother (at the cost of more virtual devices and fan-out writes). Worth a spike before concluding smooth dimming is impossible.</p>
+  </div>
+  <div class="card next">
+    <h3>Crack the app Log tab <span class="chip next">nice-to-have</span><span class="effort">effort: low–med</span></h3>
+    <p>SSH into the SysAP (port 22 open; needs the app-shown SSH password, not the local-API one) and read a reference ABB add-on to see how it feeds the Log tab — or check the <code>node-free-at-home</code> wiki. Purely a debugging-UX win.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="n">05</span> Fast reference</h2>
+  <p class="sub">Copy-paste starting points.</p>
+  <div class="card">
+    <h3>Talk to the Hue bridge</h3>
+    <pre>KEY=$(python3 -c "import json;print(json.load(open('.hue-credentials.json'))['application_key'])")
+curl -sk https://BRIDGE_IP/clip/v2/resource/scene -H "hue-application-key: $KEY"</pre>
+    <h3 style="margin-top:16px">Talk to free@home (local API)</h3>
+    <pre>curl -sk -u "$USER:$PASS" https://SYSAP_IP/fhapi/v1/api/rest/configuration
+# local dev for the add-on: FREEATHOME_BASE_URL must be http:// (not https)</pre>
+    <h3 style="margin-top:16px">Build the add-on</h3>
+    <pre>cd addon-ts && npm install && npm run build && npm run pack   # -> <id>-<version>.tar</pre>
+    <p style="margin-top:12px">Full context (every quirk, with IDs) lives in the agent memory files under <code>~/.claude/projects/-Users-…-abb-hue-plus/memory/</code> — <code>project-status.md</code> and <code>hue-smart-scene-api-quirks.md</code>.</p>
+  </div>
+</section>
+
+<p class="footer">abb-hue-plus · handover for the next agent · secrets scrubbed, never commit .hue-credentials.json</p>
+</div>
