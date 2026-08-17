@@ -243,7 +243,7 @@ curl -sk https://BRIDGE_IP/clip/v2/resource/scene -H "hue-application-key: $KEY"
 # local dev for the add-on: FREEATHOME_BASE_URL must be http:// (not https)</pre>
     <h3 style="margin-top:16px">Build the add-on</h3>
     <pre>cd addon-ts && npm install && npm run build && npm run pack   # -> <id>-<version>.tar</pre>
-    <p style="margin-top:12px">Full context (every quirk, with IDs) lives in the agent memory files under <code>~/.claude/projects/-Users-…-abb-hue-plus/memory/</code> — <code>project-status.md</code> and <code>hue-smart-scene-api-quirks.md</code>.</p>
+    <p style="margin-top:12px">This document plus the repo source (<code>addon-ts/</code>, <code>src/</code>, <code>build_day_cycles.py</code>) is the complete context — everything here was distilled from building and testing against the real hardware. Resource IDs and per-room values are read live from the bridge; <code>hallway-scene-definitions.md</code> has a captured snapshot of the scene colour/brightness table.</p>
   </div>
 </section>
 
